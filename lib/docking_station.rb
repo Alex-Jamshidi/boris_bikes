@@ -1,25 +1,21 @@
 class DockingStation
- 
-  def release_bike
-    if self.is_there_bike?
-      Bike.new
-    else
-      raise("No Bike Available")
-    end
+  
+  def initialize
+    @bikes = []
+  end
+
+  attr_reader :bikes
+
+  def dock(bike)
+    @bikes.length < 20 ? @bikes << bike : raise("Docking Station Already Contains Bike") 
   end
   
-  def dock_bike(bike_name)
-    @bike_name = bike_name
+  def release_bike
+    self.is_there_bike? ? @bikes.pop : raise("No Bike Available")
   end
 
-attr_reader :bike_name
-
   def is_there_bike?
-    if self.bike_name != nil
-      self.bike_name
-    else
-      false
-    end
+    @bikes.empty? ? false : true 
   end
 
 end
